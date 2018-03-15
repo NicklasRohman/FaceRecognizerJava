@@ -31,7 +31,7 @@ import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
-public class ColoredObjectTracker implements Runnable {
+public class ObjectTracker implements Runnable {
 
 
 	final int INTERVAL = 1;// 1sec

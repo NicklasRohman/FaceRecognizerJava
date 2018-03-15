@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 
-import application.ColoredObjectTracker;
+import application.ObjectTracker;
 import application.Database;
 import application.FaceDetector;
 import application.SquareDetector;
@@ -89,7 +89,7 @@ public class Controller {
 
 //**********************************************************************************************
 	FaceDetector faceDetect = new FaceDetector();	//Creating Face detector object									
-	ColoredObjectTracker cot = new ColoredObjectTracker(); //Creating Color Object Tracker object		
+	ObjectTracker cot = new ObjectTracker(); //Creating Color Object Tracker object		
 	Database database = new Database();		//Creating Database object
 
 	ArrayList<String> user = new ArrayList<String>();
