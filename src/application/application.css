@@ -1,0 +1,141 @@
+
+.aaa
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+    -fx-background-image: url("../pictures/onon.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+#savef
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+	
+    -fx-background-image: url("../pictures/face.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+.recog
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+	
+    -fx-background-image: url("../pictures/recognition.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+
+
+
+.motion
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+	
+    -fx-background-image: url("../pictures/motion.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+.stop
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+    -fx-background-image: url("../pictures/stop.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+.gesture
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+	
+    -fx-background-image: url("../pictures/gesture.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+.eye
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+	
+    -fx-background-image: url("../pictures/eye.png");
+
+    -fx-background-size: 45.0px 40.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+.sqr
+{
+
+-fx-min-height: 60.0px;
+
+    -fx-min-width: 90.0px;
+
+	
+    -fx-background-image: url("../pictures/square.png");
+
+    -fx-background-size: 50.0px 50.0px;
+
+    -fx-background-repeat: no-repeat;
+
+    -fx-background-position: center 7.0px;
+}
+
+
+
+
+
