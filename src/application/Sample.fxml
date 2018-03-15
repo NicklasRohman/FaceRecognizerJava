@@ -91,7 +91,7 @@
    <left>
       <TitledPane fx:id="dataPane" disable="true" prefHeight="528.0" prefWidth="302.0" text="Fetched Data" BorderPane.alignment="CENTER">
          <content>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="276.0" prefWidth="300.0">
+            <SplitPane orientation="VERTICAL" prefHeight="276.0" prefWidth="300.0">
               <items>
                 <AnchorPane fx:id="pdPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
@@ -171,7 +171,7 @@
                      </textFill>
                   </Label>
                   <Separator layoutX="77.0" layoutY="37.0" prefHeight="5.0" prefWidth="123.0" />
-                  <ListView fx:id="logList" editable="true" layoutX="4.0" layoutY="37.0" prefHeight="434.0" prefWidth="193.0" style="-fx-padding: 10;">
+                  <ListView fx:id="logList" editable="true" layoutX="4.0" layoutY="37.0" prefHeight="434.0" prefWidth="220.0" style="-fx-padding: 10;">
                      <effect>
                         <Glow />
                      </effect>

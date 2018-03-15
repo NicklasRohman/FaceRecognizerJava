@@ -20,7 +20,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.sql.SQLException;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bytedeco.javacpp.opencv_core.CvScalar;
@@ -50,16 +52,15 @@ public class ObjectTracker implements Runnable {
 	IplImage image;
 	CanvasFrame canvas ;
 	CanvasFrame path ;
-	//int ii = 0;
 	JPanel jp = new JPanel();
 
 	public void init() {
-		// canvas.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 
 		canvas = new CanvasFrame("Web Cam Live");
 		path = new CanvasFrame("Detection");
-		//path.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		path.setContentPane(jp);
+		path.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+		canvas.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public void run() {
@@ -103,20 +104,9 @@ public class ObjectTracker implements Runnable {
 		g.clearRect(0, 0, img.width(), img.height());
 		g.setColor(Color.RED);
 
-		Robot mouseControler = null ; // For moving mouse pointer
-		try {
-			mouseControler = new Robot();
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
-
-
-		mouseControler.mouseMove(posX,posY);
-
 		g.fillOval(posX, posY, 40, 40);
 		g.drawString("Detected Here", posX, posY);
 		g.drawOval(posX, posY, 40, 40);
-		System.out.println("X,Y: "+ posX + " , " + posY);
 
 	}
 
@@ -126,7 +116,6 @@ public class ObjectTracker implements Runnable {
 		cvInRangeS(orgImg, rgba_min, rgba_max, imgThreshold);// red
 
 		cvSmooth(imgThreshold, imgThreshold, CV_MEDIAN, 15,0,0,0);
-		//cvSaveImage(++ii + "dsmthreshold.jpg", imgThreshold);
 		return imgThreshold;
 	}
 

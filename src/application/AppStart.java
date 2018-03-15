@@ -7,6 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * This class is for starting the application
+ * @author Nicklas
+ *
+ */
 public class AppStart extends Application{
 
 	public static void main(String[] args) {

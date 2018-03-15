@@ -1,4 +1,5 @@
 package application;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,15 +26,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
+/**
+ * This class is the controller class. Controls what's happening in the
+ * application
+ * 
+ * @author Nicklas
+ *
+ */
 public class Controller {
 
-	//**********************************************************************************************
-	//Mention The file location path where the face will be saved & retrieved
-	
-	public String filePath="./faces";
-	
-	
-	//**********************************************************************************************
+	// **********************************************************************************************
+	// Mention The file location path where the face will be saved & retrieved
+
+	public String filePath = "./faces";
+
+	// **********************************************************************************************
 	@FXML
 	private Button startCam;
 	@FXML
@@ -87,21 +94,20 @@ public class Controller {
 	@FXML
 	public TilePane tile;
 
-//**********************************************************************************************
-	FaceDetector faceDetect = new FaceDetector();	//Creating Face detector object									
-	ObjectTracker cot = new ObjectTracker(); //Creating Color Object Tracker object		
-	Database database = new Database();		//Creating Database object
+	// **********************************************************************************************
+	FaceDetector faceDetect = new FaceDetector(); // Creating Face detector
+													// object
+	ObjectTracker ot = new ObjectTracker(); // Creating Object Tracker object
+	Database database = new Database(); // Creating Database object
 
 	ArrayList<String> user = new ArrayList<String>();
 	ImageView imageView1;
-	
+
 	public static ObservableList<String> event = FXCollections.observableArrayList();
 
-	public boolean enabled = false;
 	public boolean isDBready = false;
 
-	
-	//**********************************************************************************************
+	// **********************************************************************************************
 	public void putOnLog(String data) {
 
 		Instant now = Instant.now();
@@ -117,8 +123,8 @@ public class Controller {
 	@FXML
 	protected void startCamera() throws SQLException {
 
-		//*******************************************************************************************
-		//initializing objects from start camera button event
+		// *******************************************************************************************
+		// initializing objects from start camera button event
 		faceDetect.init();
 
 		faceDetect.setFrame(frame);
@@ -134,8 +140,8 @@ public class Controller {
 			putOnLog("Success: Database Connection Succesful ! ");
 		}
 
-		//*******************************************************************************************
-		//Activating other buttons
+		// *******************************************************************************************
+		// Activating other buttons
 		startCam.setVisible(false);
 		eyeBtn.setDisable(false);
 		stopBtn.setVisible(true);
@@ -150,30 +156,29 @@ public class Controller {
 		}
 
 		dataPane.setDisable(false);
-		
-		//*******************************************************************************************
-		
-		
+
+		// *******************************************************************************************
+
 		tile.setPadding(new Insets(15, 15, 55, 15));
 		tile.setHgap(30);
-		
-		//**********************************************************************************************
-		//Picture Gallary
-		
+
+		// **********************************************************************************************
+		// Picture Gallary
+
 		String path = filePath;
 
 		File folder = new File(path);
 		File[] listOfFiles = folder.listFiles();
-		
-		//Image reader from the mentioned folder
+
+		// Image reader from the mentioned folder
 		for (final File file : listOfFiles) {
 
 			imageView1 = createImageView(file);
 			tile.getChildren().addAll(imageView1);
 		}
 		putOnLog(" Real Time WebCam Stream Started !");
-		
-		//**********************************************************************************************
+
+		// **********************************************************************************************
 	}
 
 	@FXML
@@ -181,7 +186,7 @@ public class Controller {
 
 		recogniseBtn.setDisable(true);
 		faceDetect.setIsRecFace(true);
-		
+
 		putOnLog("Face Recognition Activated !");
 
 		stopRecBtn.setDisable(false);
@@ -205,14 +210,14 @@ public class Controller {
 	protected void startMotion() {
 		motionBtn.setDisable(true);
 		faceDetect.setMotion(true);
-		putOnLog("motion Detector Activated !");
+		putOnLog("Motion Detector Activated !");
 
 	}
 
 	@FXML
 	protected void saveFace() throws SQLException {
 
-		//Input Validation
+		// Input Validation
 		if (fname.getText().trim().isEmpty() || reg.getText().trim().isEmpty() || code.getText().trim().isEmpty()) {
 
 			new Thread(() -> {
@@ -230,7 +235,7 @@ public class Controller {
 			}).start();
 
 		} else {
-			//Progressbar
+			// Progressbar
 			pb.setVisible(true);
 
 			savedLabel.setVisible(true);
@@ -295,19 +300,19 @@ public class Controller {
 		stopRecBtn.setDisable(true);
 		eyeBtn.setDisable(true);
 		shapeBtn.setDisable(true);
-		
+
 		database.db_close();
 		putOnLog("Database Connection Closed");
-		isDBready=false;
+		isDBready = false;
 	}
 
 	@FXML
 	protected void startGesture() {
 
 		faceDetect.stop();
-		cot.init();
+		ot.init();
 
-		Thread th = new Thread(cot);
+		Thread th = new Thread(ot);
 		th.start();
 
 		gesture.setVisible(false);
@@ -320,14 +325,14 @@ public class Controller {
 
 		faceDetect.setEyeDetection(true);
 		eyeBtn.setDisable(true);
-		//eyeBtn.setVisible(false);
+		// eyeBtn.setVisible(false);
 
 	}
 
 	@FXML
 	protected void stopGesture() {
 
-		cot.stop();
+		ot.stop();
 		faceDetect.start();
 
 		gesture.setVisible(true);
@@ -338,7 +343,7 @@ public class Controller {
 	@FXML
 	protected void shapeStart() {
 
-		 faceDetect.stop();
+		faceDetect.stop();
 
 		SquareDetector shapeFrame = new SquareDetector();
 		shapeFrame.loop();
@@ -364,5 +369,4 @@ public class Controller {
 
 		return imageView1;
 	}
-
 }

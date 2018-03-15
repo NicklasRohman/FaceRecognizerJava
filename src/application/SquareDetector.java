@@ -52,6 +52,11 @@ import org.bytedeco.javacv.OpenCVFrameGrabber;
 
 import javafx.scene.image.ImageView;
 
+/**
+ * If the SquareDetection button is pushed the this class will handle the Square detections
+ * @author Nicklas
+ *
+ */
 public class SquareDetector {
 	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
 	IplImage frame;
@@ -175,27 +180,7 @@ public class SquareDetector {
 							// find minimum angle between joint
 							// edges (maximum of cosine)
 							if (i >= 2) {
-								// Java translation:
-								// Comment from the HoughLines.java sample code:
-								// " Based on JavaCPP, the equivalent of the C
-								// code:
-								// CvPoint* line =
-								// (CvPoint*)cvGetSeqElem(lines,i);
-								// CvPoint first=line[0];
-								// CvPoint second=line[1];
-								// is:
-								// Pointer line = cvGetSeqElem(lines, i);
-								// CvPoint first = new
-								// CvPoint(line).position(0);
-								// CvPoint second = new
-								// CvPoint(line).position(1);
-								// "
-								// ... so after some trial and error this seem
-								// to work
-								// t = fabs(angle(
-								// (CvPoint*)cvGetSeqElem( result, i ),
-								// (CvPoint*)cvGetSeqElem( result, i-2 ),
-								// (CvPoint*)cvGetSeqElem( result, i-1 )));
+						
 								t = Math.abs(angle(new CvPoint(cvGetSeqElem(result, i)),
 										new CvPoint(cvGetSeqElem(result, i - 2)),
 										new CvPoint(cvGetSeqElem(result, i - 1))));

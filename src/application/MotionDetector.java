@@ -29,6 +29,11 @@ import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 
+/**
+ * If the motionDetector button is pushed the this class will handle the motion detections
+ * @author Nicklas
+ *
+ */
 public class MotionDetector {
 	public void init(IplImage frame, Graphics2D g2) throws Exception {
 

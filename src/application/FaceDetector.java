@@ -23,12 +23,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import org.bytedeco.javacpp.Loader;
 import org.bytedeco.javacpp.opencv_objdetect;
@@ -50,6 +46,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 
+/**
+ * Detects the face/s and starts the camera so we can do something in the application 
+ * @author Nicklas
+ *
+ */
 public class FaceDetector implements Runnable {
 
 	Database database = new Database();
@@ -59,7 +60,6 @@ public class FaceDetector implements Runnable {
 	MotionDetector motionDetector = new MotionDetector();
 	OpenCVFrameConverter.ToIplImage grabberConverter = new OpenCVFrameConverter.ToIplImage();
 	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
-	// ArrayList<String> output = new ArrayList<String>();
 
 	@FXML
 	public Label ll;
@@ -81,7 +81,7 @@ public class FaceDetector implements Runnable {
 
 	public CvMemStorage storage = null;
 	private FrameGrabber grabber = null;
-	private IplImage grabbedImage = null, temp, temp2, grayImage = null, smallImage = null;
+	private IplImage grabbedImage = null, temp, grayImage = null, smallImage = null;
 	public ImageView frames2;
 	public ImageView frames;
 
@@ -225,8 +225,7 @@ public class FaceDetector implements Runnable {
 									g2.setColor(Color.WHITE);
 									g2.setFont(new Font("Arial Black", Font.BOLD, 20));
 									String names = user.get(1) + " " + user.get(2);
-									g2.drawString(names, (int) (r.x() * 6.5), r.y() * 4);
-
+									g2.drawString(names, (r.x()*4),(r.y()*4));
 								}
 
 								if (saveFace) { // saving captured face to the
