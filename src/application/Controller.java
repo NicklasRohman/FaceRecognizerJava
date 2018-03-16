@@ -248,17 +248,41 @@ public class Controller {
 
 					faceDetect.setFname(fname.getText());
 					faceDetect.setLname(lname.getText());
-					faceDetect.setAge(Integer.parseInt(age.getText()));
-					faceDetect.setCode(Integer.parseInt(code.getText()));
 					faceDetect.setSec(sec.getText());
-					faceDetect.setReg(Integer.parseInt(reg.getText()));
+					try {
+						faceDetect.setAge(Integer.parseInt(age.getText()));
+					} catch (Exception e) {
+						faceDetect.setAge(0);
+					}
+					try {
+						faceDetect.setCode(Integer.parseInt(code.getText()));
+					} catch (Exception e) {
+						faceDetect.setCode(0);
+					}
+					try {
+						faceDetect.setReg(Integer.parseInt(reg.getText()));
+					} catch (Exception e) {
+						faceDetect.setReg(0);
+					}
 
 					database.setFname(fname.getText());
 					database.setLname(lname.getText());
-					database.setAge(Integer.parseInt(age.getText()));
-					database.setCode(Integer.parseInt(code.getText()));
 					database.setSec(sec.getText());
-					database.setReg(Integer.parseInt(reg.getText()));
+					try {
+						database.setAge(Integer.parseInt(age.getText()));
+					} catch (Exception e) {
+						database.setAge(0);
+					}
+					try {
+						database.setCode(Integer.parseInt(code.getText()));
+					} catch (Exception e) {
+						database.setCode(0);
+					}
+					try {
+						database.setReg(Integer.parseInt(reg.getText()));
+					} catch (Exception e) {
+						database.setReg(0);
+					}
 
 					database.insert();
 
