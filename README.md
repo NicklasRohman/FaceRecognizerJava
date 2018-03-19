@@ -60,11 +60,10 @@ Make sure everything has the same bitness: **32-bit and 64-bit modules. I used 6
 	<version>3.4.1-1.4</version>
 </dependency>
 # Configuration Settings 
-#### ExoVision may not work properly Without these settings
 #### Before executing the App, you have to make some change to below mentioned files...
 
 ## Database Settings 
-* Open MySQL on XAMPP then Create a New Database & name it **ghostEye** 
+* Open MySQL on XAMPP then Create a New Database & name it **face** 
 * Now import attached **face_bio.sql** to the  **face** Database
 * Or Create a New Schema(Table)
 
@@ -112,5 +111,3 @@ class Database {
 
 # Please Note:
 Please Keep it in mind ,sometimes the face recognition algorithm provides wrong output if a person is not trained or unknown to the system.The reason behind this is that the face recognition algorithm guess the face with the nearest match.when it does not find any match ,the system pick any face with a nearest match.this is  why it sometimes provides wrong output.
-
-
