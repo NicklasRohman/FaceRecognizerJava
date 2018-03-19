@@ -13,7 +13,7 @@ I have developed this project using Eclipse Neon.
 ### Required Software
 To properly run this Application on your System, At first you need to download and install the following software:
 
- * An implementation of **Java SE** 7 or newer:
+ * An implementation of **Java SE** 8 or newer:
    * **JDK**  http://www.oracle.com/technetwork/java/javase/downloads/index.html
  
  * An implementation of **JavaFX**: (Follow The Installation Instruction)
@@ -106,8 +106,7 @@ class Database {
 	public final String Database_pass = "Your Database Password";
 
 # Tips
-* When you going to train a new face try to capture at least 10 pictures of a single person in different angle.keep it in mind that the more number of training image in different angle and posture, the more accurate will be  face recognition.
-* After everything done ,kindly empty the **faces** folder.There is a test_face image.You have to delete it.
+* When you going to train a new face try to capture at least 10 pictures of a single person in different angle.keep it in mind that the more number of training image in different angle and posture, the more accurate it will be face recognition.
 
 # Please Note:
 Please Keep it in mind ,sometimes the face recognition algorithm provides wrong output if a person is not trained or unknown to the system.The reason behind this is that the face recognition algorithm guess the face with the nearest match.when it does not find any match ,the system pick any face with a nearest match.this is  why it sometimes provides wrong output.
