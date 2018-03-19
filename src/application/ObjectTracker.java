@@ -14,17 +14,6 @@ import static org.bytedeco.javacpp.opencv_imgproc.cvGetCentralMoment;
 import static org.bytedeco.javacpp.opencv_imgproc.cvGetSpatialMoment;
 import static org.bytedeco.javacpp.opencv_imgproc.cvMoments;
 import static org.bytedeco.javacpp.opencv_imgproc.cvSmooth;
-
-import java.awt.AWTException;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Robot;
-import java.awt.image.BufferedImage;
-import java.sql.SQLException;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_imgproc.CvMoments;
@@ -32,6 +21,12 @@ import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
 
 public class ObjectTracker implements Runnable {
 

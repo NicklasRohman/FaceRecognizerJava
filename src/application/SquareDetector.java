@@ -46,6 +46,7 @@ import org.bytedeco.javacpp.opencv_core.CvSize;
 import org.bytedeco.javacpp.opencv_core.CvSlice;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
@@ -259,8 +260,7 @@ public class SquareDetector {
 
 			try {
 				grabber.start();
-			} catch (org.bytedeco.javacv.FrameGrabber.Exception e1) {
-				// TODO Auto-generated catch block
+			} catch (FrameGrabber.Exception e1) {
 				e1.printStackTrace();
 			}
 
