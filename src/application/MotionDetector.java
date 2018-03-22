@@ -44,6 +44,7 @@ public class MotionDetector {
 
 		CanvasFrame canvasFrame = new CanvasFrame("Motion Detector");
 		canvasFrame.setCanvasSize(frame.width(), frame.height());
+		canvasFrame.toFront();
 
 		CvMemStorage storage = CvMemStorage.create();
 
@@ -80,7 +81,6 @@ public class MotionDetector {
 
 				while (contour != null && !contour.isNull()) {
 					if (contour.elem_size() > 0) {
-						CvBox2D box = cvMinAreaRect2(contour, storage);
 
 						g2.setColor(Color.RED);
 
@@ -90,12 +90,6 @@ public class MotionDetector {
 
 						g2.drawString(name, (int) (50), (50));
 
-						// test intersection
-						if (box != null) {
-							CvPoint2D32f center = box.center();
-							CvSize2D32f size = box.size();
-
-						}
 					}
 					contour = contour.h_next();
 				}

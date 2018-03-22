@@ -23,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -64,10 +63,6 @@ public class Controller {
 	@FXML
 	private ImageView frame;
 	@FXML
-	private ImageView motionView;
-	@FXML
-	private AnchorPane pdPane;
-	@FXML
 	private TitledPane dataPane;
 	@FXML
 	private TextField fname;
@@ -82,32 +77,34 @@ public class Controller {
 	@FXML
 	private TextField age;
 	@FXML
-	public ListView<String> logList;
+	private ListView<String> logList;
 	@FXML
-	public ProgressIndicator pb;
+	private ProgressIndicator pb;
 	@FXML
-	public Label savedLabel;
+	private Label savedLabel;
 	@FXML
-	public Label warning;
+	private Label warning;
 	@FXML
-	public Label title;
-	@FXML
-	public TilePane tile;
+	private TilePane tile;
 
 	// **********************************************************************************************
-	FaceDetector faceDetect = new FaceDetector(); // Creating Face detector
+	private FaceDetector faceDetect = new FaceDetector(); // Creating Face detector
 													// object
-	ObjectTracker ot = new ObjectTracker(); // Creating Object Tracker object
-	Database database = new Database(); // Creating Database object
+	private ObjectTracker ot = new ObjectTracker(); // Creating Object Tracker object
+	private Database database = new Database(); // Creating Database object
 
-	ArrayList<String> user = new ArrayList<String>();
-	ImageView imageView1;
+	private ArrayList<String> user = new ArrayList<String>();
+	private ImageView imageView1;
 
-	public static ObservableList<String> event = FXCollections.observableArrayList();
+	private ObservableList<String> event = FXCollections.observableArrayList();
 
-	public boolean isDBready = false;
+	private boolean isDBready = false;
 
 	// **********************************************************************************************
+	/**
+	 * Puts String data in to a arraylist that update the eventlog 
+	 * @param data
+	 */
 	public void putOnLog(String data) {
 
 		Instant now = Instant.now();
@@ -176,7 +173,7 @@ public class Controller {
 			imageView1 = createImageView(file);
 			tile.getChildren().addAll(imageView1);
 		}
-		putOnLog(" Real Time WebCam Stream Started !");
+		putOnLog("Real Time WebCam Stream Started !");
 
 		// **********************************************************************************************
 	}
@@ -349,7 +346,6 @@ public class Controller {
 
 		faceDetect.setEyeDetection(true);
 		eyeBtn.setDisable(true);
-		// eyeBtn.setVisible(false);
 
 	}
 

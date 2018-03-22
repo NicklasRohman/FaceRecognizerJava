@@ -18,14 +18,21 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
 import org.bytedeco.javacpp.opencv_face.LBPHFaceRecognizer;
 
+/**
+ * This class handles the recognizer/training faces and load all faces in faces folder
+ * @author Nicklas
+ *
+ */
 public class FaceRecognizer {
 
-
 	LBPHFaceRecognizer faceRecognizer;
-	public File root;
+	private File root;
 	MatVector images;
 	Mat labels;
 
+	/**
+	 * training the faces from specific folder
+	 */
 	public void init() {
 		// mention the directory the faces has been saved
 		String trainingDir = "./faces";

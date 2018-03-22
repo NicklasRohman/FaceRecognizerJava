@@ -52,7 +52,11 @@ public class ObjectTracker implements Runnable {
 	public void init() {
 
 		canvas = new CanvasFrame("Web Cam Live");
+		canvas.setLocation(0, 0);
+		canvas.toFront();
 		path = new CanvasFrame("Detection");
+		path.setLocation(700, 0);
+		path.toFront();
 		path.setContentPane(jp);
 		path.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
 		canvas.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);

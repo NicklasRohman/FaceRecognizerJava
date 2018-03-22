@@ -13,11 +13,18 @@ import javafx.stage.Stage;
  */
 public class AppStart extends Application{
 
+	/**
+	 * starts the Application
+	 * @param args = null
+	 */
 	public static void main(String[] args) {
 		launch(args);
 
 	}
 
+	/**
+	 * Start javaFx panel thru sample.fxml
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {

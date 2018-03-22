@@ -41,8 +41,6 @@ import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 
@@ -53,25 +51,23 @@ import javafx.scene.image.WritableImage;
  */
 public class FaceDetector implements Runnable {
 
-	Database database = new Database();
-	ArrayList<String> user;
+	private Database database = new Database();
+	private ArrayList<String> user;
 
-	FaceRecognizer faceRecognizer = new FaceRecognizer();
-	MotionDetector motionDetector = new MotionDetector();
-	OpenCVFrameConverter.ToIplImage grabberConverter = new OpenCVFrameConverter.ToIplImage();
-	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
+	private FaceRecognizer faceRecognizer = new FaceRecognizer();
+	private MotionDetector motionDetector = new MotionDetector();
+	private OpenCVFrameConverter.ToIplImage grabberConverter = new OpenCVFrameConverter.ToIplImage();
+	private Java2DFrameConverter paintConverter = new Java2DFrameConverter();
 
-	@FXML
-	public Label ll;
 	private Exception exception = null;
 
-	public String classiferName;
-	public File classifierFile;
+	private String classiferName;
+	private File classifierFile;
 
-	public boolean saveFace = false;
-	public boolean isRecFace = false;
-	public boolean isMotion = false;
-	public boolean isEyeDetection = false;
+	private boolean saveFace = false;
+	private boolean isRecFace = false;
+	private boolean isMotion = false;
+	private boolean isEyeDetection = false;
 	private boolean stop = false;
 
 	private CvHaarClassifierCascade classifier = null;
@@ -79,25 +75,26 @@ public class FaceDetector implements Runnable {
 	private CvHaarClassifierCascade classifierSideFace = null;
 	private CvHaarClassifierCascade classifierEyeglass = null;
 
-	public CvMemStorage storage = null;
+	private CvMemStorage storage = null;
 	private FrameGrabber grabber = null;
 	private IplImage grabbedImage = null, temp, grayImage = null, smallImage = null;
-	public ImageView frames2;
-	public ImageView frames;
+	private ImageView frames;
 
 	private CvSeq faces = null;
 	private CvSeq eyes = null;
 
-	int recogniseCode;
-	public int code;
-	public int reg;
-	public int age;
+	private int recogniseCode;
+	private int code;
+	private int reg;
+	private int age;
 
-	public String fname; // first name
-	public String Lname; // last name
-	public String sec; // section
-	public String name;
+	private String fname;
+	private String Lname; 
+	private String sec; 
 
+	/**
+	 * initialize the HaarCascade
+	 */
 	public void init() {
 		faceRecognizer.init();
 
@@ -108,6 +105,9 @@ public class FaceDetector implements Runnable {
 
 	}
 
+	/*
+	 * Start a new thread for FaceDetector
+	 */
 	public void start() {
 		try {
 			new Thread(this).start();
@@ -119,13 +119,13 @@ public class FaceDetector implements Runnable {
 		}
 	}
 
+	/**
+	 * run Facedetector class
+	 */
 	public void run() {
 		try {
 			try {
-				grabber = OpenCVFrameGrabber.createDefault(0); // parameter 0
-																// default
-																// camera , 1
-																// for secondary
+				grabber = OpenCVFrameGrabber.createDefault(0); // parameter 0 default camera , 1 for secondary
 
 				grabber.setImageWidth(700);
 				grabber.setImageHeight(700);
@@ -150,7 +150,7 @@ public class FaceDetector implements Runnable {
 			smallImage = cvCreateImage(cvSize(grabbedImage.width() / 4, grabbedImage.height() / 4), 8, 1);
 
 			stop = false;
-
+			
 			while (!stop && (grabbedImage = grabberConverter.convert(grabber.grab())) != null) {
 
 				Frame frame = grabberConverter.convert(grabbedImage);
@@ -184,7 +184,7 @@ public class FaceDetector implements Runnable {
 
 							}
 
-							printResult(eyes, eyes.total(), g2);
+							printEyeResult(eyes, eyes.total(), g2);
 
 						}
 
@@ -279,27 +279,29 @@ public class FaceDetector implements Runnable {
 		}
 	}
 
+	/**
+	 * stopp the facedetector and camera
+	 */
 	public void stop() {
 		stop = true;
 
 		grabbedImage = grayImage = smallImage = null;
 		try {
 			grabber.stop();
-		} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+		} catch (FrameGrabber.Exception e) {
 
 			e.printStackTrace();
 		}
 		try {
 			grabber.release();
-		} catch (org.bytedeco.javacv.FrameGrabber.Exception e) {
+		} catch (FrameGrabber.Exception e) {
 
 			e.printStackTrace();
 		}
 		grabber = null;
 	}
 
-	public void setClassifier(String name) {
-
+	private void setClassifier(String name) {
 		try {
 
 			setClassiferName(name);
@@ -326,8 +328,7 @@ public class FaceDetector implements Runnable {
 
 	}
 
-	public void setClassifierEye(String name) {
-
+	private void setClassifierEye(String name) {
 		try {
 
 			classiferName = name;
@@ -354,7 +355,7 @@ public class FaceDetector implements Runnable {
 
 	}
 
-	public void printResult(CvSeq data, int total, Graphics2D g2) {
+	private void printEyeResult(CvSeq data, int total, Graphics2D g2) {
 		for (int j = 0; j < total; j++) {
 			CvRect eye = new CvRect(cvGetSeqElem(eyes, j));
 
@@ -363,7 +364,7 @@ public class FaceDetector implements Runnable {
 		}
 	}
 
-	public void setClassifierSideFace(String name) {
+	private void setClassifierSideFace(String name) {
 
 		try {
 
@@ -391,7 +392,7 @@ public class FaceDetector implements Runnable {
 
 	}
 
-	public void setClassifierEyeGlass(String name) {
+	private void setClassifierEyeGlass(String name) {
 
 		try {
 
@@ -419,28 +420,12 @@ public class FaceDetector implements Runnable {
 
 	}
 
-	public String getClassiferName() {
-		return classiferName;
-	}
-
 	public void setClassiferName(String classiferName) {
 		this.classiferName = classiferName;
 	}
 
-	public void setFrames2(ImageView frames2) {
-		this.frames2 = frames2;
-	}
-
-	public boolean isEyeDetection() {
-
-		return isEyeDetection;
-	}
-
 	public void setEyeDetection(boolean isEyeDetection) {
 		this.isEyeDetection = isEyeDetection;
-	}
-
-	public void destroy() {
 	}
 
 	public boolean isMotion() {
@@ -449,14 +434,6 @@ public class FaceDetector implements Runnable {
 
 	public void setMotion(boolean isMotion) {
 		this.isMotion = isMotion;
-	}
-
-	public int getRecogniseCode() {
-		return recogniseCode;
-	}
-
-	public void setRecogniseCode(int recogniseCode) {
-		this.recogniseCode = recogniseCode;
 	}
 
 	public int getCode() {
@@ -513,10 +490,6 @@ public class FaceDetector implements Runnable {
 
 	public void setSaveFace(Boolean f) {
 		this.saveFace = f;
-	}
-
-	public Boolean getIsRecFace() {
-		return isRecFace;
 	}
 
 	public void setIsRecFace(Boolean isRecFace) {

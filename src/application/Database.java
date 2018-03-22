@@ -2,25 +2,28 @@ package application;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+/**
+ * This class is handling database connection and database statements
+ * @author Nicklas
+ *
+ */
 class Database {
-	public int code;
+	private int code;
+	private String fname;
+	private String Lname;
+	private int reg;
+	private int age;
+	private String sec;
 
-	public String fname;
-	public String Lname;
-	public int reg;
-	public int age;
-	public String sec;
+	private final String DB_NAME = "face";
+	private final String DB_USER = "root";
+	private final String DB_PASS = "";
 
-	public final String Database_name = "face";
-	public final String Database_user = "root";
-	public final String Database_pass = "";
-
-	public Connection con;
+	private Connection con;
 
 	/**
 	 * initialize database
-	 * @return
+	 * @return true if connection with database / false if no connection with database
 	 * @throws SQLException
 	 */
 	public boolean init() throws SQLException {
@@ -28,8 +31,8 @@ class Database {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			try {
-				this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Database_name, Database_user,
-						Database_pass);
+				this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + DB_NAME, DB_USER,
+						DB_PASS);
 			} catch (SQLException e) {
 
 				System.out.println("Error: Database Connection Failed ! Please check the connection Setting");

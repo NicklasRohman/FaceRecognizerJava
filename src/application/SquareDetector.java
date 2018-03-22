@@ -47,11 +47,8 @@ import org.bytedeco.javacpp.opencv_core.CvSlice;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.FrameGrabber;
-import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
-
-import javafx.scene.image.ImageView;
 
 /**
  * If the SquareDetection button is pushed the this class will handle the Square detections
@@ -59,39 +56,22 @@ import javafx.scene.image.ImageView;
  *
  */
 public class SquareDetector {
-	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
-	IplImage frame;
-	ImageView frameShow;
-	public Exception exception = null;
-	public IplImage grabbedImage = null, grayImage = null, smallImage = null;
+	private IplImage grabbedImage = null;
 	public CanvasFrame canvass = new CanvasFrame("Webcam");
 
 	// use default camera
-	public OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);;
-
-	public void setFrameShow(ImageView frameShow) {
-		this.frameShow = frameShow;
-	}
-
-	public void setFrame(IplImage frame) {
-		this.frame = frame;
-	}
+	public OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
 
 	int thresh = 50;
-	IplImage img = null;
-	IplImage img0 = null;
 	CvMemStorage storage = null;
 	CvMemStorage storage2 = null;
-	String wndname = "Square Detection Demo";
-
-	// Java spesific
 
 	OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
 
 	// helper function:
 	// finds a cosine of angle between vectors
 	// from pt0->pt1 and from pt0->pt2
-	double angle(CvPoint pt1, CvPoint pt2, CvPoint pt0) {
+	private double angle(CvPoint pt1, CvPoint pt2, CvPoint pt0) {
 		double dx1 = pt1.x() - pt0.x();
 		double dy1 = pt1.y() - pt0.y();
 		double dx2 = pt2.x() - pt0.x();
@@ -102,18 +82,14 @@ public class SquareDetector {
 
 	// returns sequence of squares detected on the image.
 	// the sequence is stored in the specified memory storage
-	CvSeq findSquares4(IplImage img, CvMemStorage storage) {
-		// Java translation: moved into loop
-		// CvSeq contours = new CvSeq();
+	private CvSeq findSquares4(IplImage img, CvMemStorage storage) {
+
 		int i, c, l, N = 11;
 		CvSize sz = cvSize(img.width() & -2, img.height() & -2);
 		IplImage timg = cvCloneImage(img); // make a copy of input image
 		IplImage gray = cvCreateImage(sz, 8, 1);
 		IplImage pyr = cvCreateImage(cvSize(sz.width() / 2, sz.height() / 2), 8, 3);
 		IplImage tgray = null;
-		// Java translation: moved into loop
-		// CvSeq result = null;
-		// double s = 0.0, t = 0.0;
 
 		// create empty sequence that will contain points -
 		// 4 points per square (the square's vertices)
@@ -136,7 +112,6 @@ public class SquareDetector {
 
 			// try several threshold levels
 			for (l = 0; l < N; l++) {
-				// hack: use Canny instead of zero threshold level.
 				// Canny helps to catch squares with gradient shading
 				if (l == 0) {
 					// apply Canny. Take the upper threshold from slider
@@ -152,7 +127,6 @@ public class SquareDetector {
 				}
 
 				// find contours and store them all as a list
-				// Java translation: moved into the loop
 				CvSeq contours = new CvSeq();
 				cvFindContours(gray, storage, contours, Loader.sizeof(CvContour.class), CV_RETR_LIST,
 						CV_CHAIN_APPROX_SIMPLE, cvPoint(0, 0));
@@ -161,7 +135,6 @@ public class SquareDetector {
 				while (contours != null && !contours.isNull()) {
 					// approximate contour with accuracy proportional
 					// to the contour perimeter
-					// Java translation: moved into the loop
 					CvSeq result = cvApproxPoly(contours, Loader.sizeof(CvContour.class), storage, CV_POLY_APPROX_DP,
 							cvContourPerimeter(contours) * 0.02, 0);
 					// square contours should have 4 vertices after
@@ -174,7 +147,6 @@ public class SquareDetector {
 					if (result.total() == 4 && Math.abs(cvContourArea(result, CV_WHOLE_SEQ, 0)) > 1000
 							&& cvCheckContourConvexity(result) != 0) {
 
-						// Java translation: moved into loop
 						double s = 0.0, t = 0.0;
 
 						for (i = 0; i < 5; i++) {
@@ -214,14 +186,12 @@ public class SquareDetector {
 	}
 
 	// the function draws all the squares in the image
-	void drawSquares(IplImage img, CvSeq squares) {
+	private void drawSquares(IplImage img, CvSeq squares) {
 
 		// Java translation: Here the code is somewhat different from the C
 		// version.
 		// I was unable to get straight forward CvPoint[] arrays
 		// working with "reader" and the "CV_READ_SEQ_ELEM".
-
-		// CvSeqReader reader = new CvSeqReader();
 
 		IplImage cpy = cvCloneImage(img);
 		int i = 0;
@@ -231,7 +201,6 @@ public class SquareDetector {
 		CvSlice slice = new CvSlice(squares);
 
 		// initialize reader of the sequence
-		// cvStartReadSeq(squares, reader, 0);
 
 		// read 4 sequence elements at a time (all vertices of a square)
 		for (i = 0; i < squares.total(); i += 4) {
@@ -245,7 +214,7 @@ public class SquareDetector {
 
 		}
 		canvass.showImage(converter.convert(cpy));
-
+		canvass.toFront();
 		cvReleaseImage(cpy);
 	}
 
@@ -280,6 +249,7 @@ public class SquareDetector {
 
 					drawSquares(grabbedImage, findSquares4(grabbedImage, storage));
 				}
+				
 
 			}
 
